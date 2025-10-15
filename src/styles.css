@@ -1,4 +1,59 @@
-/* You can add global styles to this file, and also import other style files */
+/* Simple Global Theme Colors */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  --color-main: #B76E79;       /* tea rose red */
+  --color-accent: #DE5D83;     /* deep pink */
+  --color-surface: #ECC5C0;    /* pink blush */
+  --color-soft: #DEA193;       /* pale peach */
+  --color-bg: #FFF0F5;         /* lavender blush */
+  --color-text: #362222;       /* dark, readable text */
+}
+
+/* Page background and body text */
+html, body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  color: var(--color-main);
+  font-weight: 700;
+}
+
+/* Links */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Button styles */
+button, .btn-main {
+  background: var(--color-main);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  font-size: 1em;
+}
+
+/* Accent class for highlights or alternate buttons */
+.btn-accent, .mat-tertiary {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.container {
+  max-width: 800px;
+  margin: 2em auto;
+  background: var(--color-surface);
+  padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 3%);
+}
