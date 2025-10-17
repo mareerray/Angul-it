@@ -5,12 +5,14 @@
   --color-accent: #DE5D83;     /* deep pink */
   --color-surface: #ECC5C0;    /* pink blush */
   --color-soft: #DEA193;       /* pale peach */
-  --color-bg: #FFF0F5;         /* lavender blush */
+  --color-bg: #faeef2;         /* lavender blush */
   --color-text: #362222;       /* dark, readable text */
+  --color-nicebg: linear-gradient(120deg, #FFF0F5 0%, #ECC5C0 100%);
 }
 
 /* Page background and body text */
 html, body {
+  min-height: 100vh;
   background: var(--color-bg);
   color: var(--color-text);
   font-family: "Roboto", Arial, sans-serif;
@@ -33,6 +35,7 @@ a:hover {
   text-decoration: underline;
 }
 
+
 /* Button styles */
 button, .btn-main {
   background: var(--color-main);
@@ -41,6 +44,8 @@ button, .btn-main {
   border-radius: 4px;
   padding: 0.5em 1em;
   font-size: 1em;
+  cursor: pointer;
+  margin-top: 1em;
 }
 
 /* Accent class for highlights or alternate buttons */
@@ -49,12 +54,4 @@ button, .btn-main {
   color: #fff;
 }
 
-.container {
-  max-width: 800px;
-  margin: 2em auto;
-  /* background: var(--color-surface); */
-  text-align: center;
-  padding: 2em;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 3%);
-}
+
