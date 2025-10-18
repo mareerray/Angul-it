@@ -1,9 +1,9 @@
 .container {
     position: relative;
-    background-image: url("/assets/images/home-bg.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    
+    /* background-image: url("/assets/images/home-bg.png"); */
+    /* background-size: cover;
+    background-repeat: no-repeat; */
+    /* background: rgba(255, 255, 255, 0.1);  */
     max-width: 800px;
     height: 400px;
     margin: 2em auto;
@@ -12,11 +12,11 @@
     margin-top: 100px;
     padding: 2em;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 3%);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 30%);
 }
 
 .container h1 {
-    margin-top: 0.5em;
+    margin-top: 1em;
     margin-bottom: 0.5em;
     margin-left: auto;
     margin-right: auto;
@@ -37,11 +37,11 @@
 .instructions-text {
     line-height: 1.6;
     max-width: 90%;
-    margin: 1.5em auto;
     color: var(--color-text);
-    background: rgba(236, 197, 192, 0.5);
-    padding: 1.4em 1.4em;
-    border-left: 4px solid var(--color-main);
+    /* background: rgba(236, 197, 192, 0.4);  */
+    /* background: rgba(233, 239, 237, 0.6); */
+    /* border-left: 4px solid var(--color-main); */
+    /* border-left: 4px solid #b3c6c0; */
     border-radius: 6px;
 }
 
@@ -50,5 +50,5 @@
 }
 
 button {
-    margin-top: 1em;
+    margin-top: 0.5em;
 }

@@ -7,17 +7,35 @@
   --color-soft: #DEA193;       /* pale peach */
   --color-bg: #faeef2;         /* lavender blush */
   --color-text: #362222;       /* dark, readable text */
-  --color-nicebg: linear-gradient(120deg, #FFF0F5 0%, #ECC5C0 100%);
+  --color-nicebg: linear-gradient(145deg, #FFF0F5 0%, #ECC5C0 50%, #362222 100%);
 }
 
 /* Page background and body text */
 html, body {
   min-height: 100vh;
-  background: var(--color-bg);
+  background-image: url("/assets/images/newbg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  /* background: var(--color-bg); */
   color: var(--color-text);
   font-family: "Roboto", Arial, sans-serif;
   font-size: 16px;
   margin: 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -1;
+  background-image: url("/assets/images/newbg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  filter: blur(1px);
 }
 
 /* Headings */
@@ -45,7 +63,7 @@ button, .btn-main {
   padding: 0.5em 1em;
   font-size: 1em;
   cursor: pointer;
-  margin-top: 1em;
+  margin-top: 0.8em;
 }
 
 /* Accent class for highlights or alternate buttons */
