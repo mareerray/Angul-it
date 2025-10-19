@@ -13,19 +13,19 @@ src/
 │   ├── app.ts          // Root standalone component; connects template, styles, and routing.
 │   │
 │   ├── home/           // "Home" page feature folder
-│   │   ├── home.ts     // Home component logic and metadata.
-│   │   ├── home.html   // Home page layout and structure.
-│   │   ├── home.css    // Styles scoped only to the Home page.  -- (optional)
+│   │   ├── home.component.ts     // Home component logic and metadata.
+│   │   ├── home.component.html   // Home page layout and structure.
+│   │   ├── home.component.css    // Styles scoped only to the Home page.  -- (optional)
 │   │
 │   ├── captcha/        // "Captcha" page feature folder
-│   │   ├── captcha.ts  // Captcha component logic.
-│   │   ├── captcha.html    // Captcha page layout.
-│   │   ├── captcha.css     // Captcha-specific styles.  -- (optional)
+│   │   ├── captcha.component.ts  // Captcha component logic.
+│   │   ├── captcha.component.html    // Captcha page layout.
+│   │   ├── captcha.component.css     // Captcha-specific styles.  -- (optional)
 │   │
 │   ├── result/         // "Result" page feature folder
-│   │   ├── result.ts   // Result component logic.
-│   │   ├── result.html // Result layout template.
-│   │   ├── result.css      // Styles for the Result page.  -- (optional)
+│   │   ├── result.component.ts   // Result component logic.
+│   │   ├── result.component.html // Result layout template.
+│   │   ├── result.component.css      // Styles for the Result page.  -- (optional)
 │   │
 └── assets/             // Static files like images, icons, and fonts.
     └── images/         // Project images used across pages.

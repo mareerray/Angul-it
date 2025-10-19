@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { Home } from './home/home';
-import { Captcha } from './captcha/captcha';
-import { Result } from './result/result';
+import { HomeComponent } from './home/home.component';
+import { CaptchaComponent } from './captcha/captcha.component';
+import { ResultComponent } from './result/result.component';
 
 export const routes: Routes = [
-    {path: '', component: Home},
-    {path: 'captcha', component: Captcha},
-    {path: 'result', component: Result},
+    {path: '', component: HomeComponent},
+    {path: 'captcha', component: CaptchaComponent},
+    {path: 'result', component: ResultComponent},
 ];

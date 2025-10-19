@@ -1,0 +1,16 @@
+<!-- <p>captcha works!</p> -->
+<h2 class="captcha-title">Select all images that can fly</h2>
+<div class="captcha-grid">
+  <div 
+    *ngFor="let img of gridImages; let i = index"
+    class="captcha-cell"
+    (click)="selectImage(i)"
+    [class.selected]="img.selected"
+    [attr.aria-label]="img.alt"
+    tabindex="0"
+    role="button"
+  >
+    <img [src]="img.src" [alt]="img.alt" class="captcha-image" />
+  </div>
+</div>
+<button class="btn-main" (click)="checkAnswers()">Submit</button>
