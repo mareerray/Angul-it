@@ -1,5 +1,7 @@
-<!-- <p>captcha works!</p> -->
-<h2 class="captcha-title">Select all images that can fly</h2>
+<h2 class="captcha-title">
+  {{ challenges[currentChallengeIndex].prompt }}
+</h2>
+
 <div class="captcha-grid">
   <div 
     *ngFor="let img of gridImages; let i = index"
@@ -13,4 +15,48 @@
     <img [src]="img.src" [alt]="img.alt" class="captcha-image" />
   </div>
 </div>
-<button class="btn-main" (click)="checkAnswers()">Submit</button>
+
+<div class="captcha-controls">
+  <button 
+    class="btn-main" 
+    (click)="backChallenge()"
+    [disabled]="currentChallengeIndex === 0"
+  >
+    Back
+  </button>
+  <button 
+    class="btn-main" 
+    (click)="nextChallenge()" 
+    [disabled]="!checkAnswers()"
+    *ngIf="currentChallengeIndex < challenges.length - 1"
+  >
+    Next
+  </button>
+  <button 
+    class="btn-main"
+    [disabled]="!checkAnswers()"
+    *ngIf="currentChallengeIndex === challenges.length - 1"
+  >
+    Finish
+  </button>
+</div>
+
+
+
+
+<!-- <p>captcha works!</p> -->
+<!-- <h2 class="captcha-title">Select all images that can fly</h2>
+<div class="captcha-grid">
+  <div 
+    *ngFor="let img of gridImages; let i = index"
+    class="captcha-cell"
+    (click)="selectImage(i)"
+    [class.selected]="img.selected"
+    [attr.aria-label]="img.alt"
+    tabindex="0"
+    role="button"
+  >
+    <img [src]="img.src" [alt]="img.alt" class="captcha-image" />
+  </div>
+</div>
+<button class="btn-main" (click)="checkAnswers()">Submit</button> -->
