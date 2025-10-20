@@ -1,3 +1,9 @@
+/* Ensure consistent box-sizing across the layout */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 .captcha-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 columns for a 3x3 grid */
@@ -44,8 +50,9 @@
   display: flex;
   justify-content: space-between; /* Puts buttons on opposite sides */
   align-items: center;
-  max-width: 400px;
+  max-width: 500px;
   margin: 0 auto 0 auto; /* Center the button row */
+  box-sizing: border-box;
 }
 
 .btn-main {
@@ -67,9 +74,17 @@
 }
 
 
-@media (max-width: 600px) {
-  .captcha-grid {
-    max-width: 95vw;
-    gap: 10px;
+
+@media (max-width: 790px) {
+  .captcha-controls {
+    gap: 16px;
+    box-sizing: border-box;
+  }
+
+  button,
+  .btn-main {
+    width: 50%;
+    font-size: 1rem;
+    padding: 0.8em;
   }
 }
