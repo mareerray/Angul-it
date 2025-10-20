@@ -21,6 +21,8 @@ src/
 │   │   ├── captcha.component.ts  // Captcha component logic.
 │   │   ├── captcha.component.html    // Captcha page layout.
 │   │   ├── captcha.component.css     // Captcha-specific styles.  -- (optional)
+│   │   ├── captcha.guard.ts.    // Keeps everything CAPTCHA-related self-contained
+│   │   ├── captcha.model.ts.   // Defines ImageItem and Challenge
 │   │
 │   ├── result/         // "Result" page feature folder
 │   │   ├── result.component.ts   // Result component logic.
