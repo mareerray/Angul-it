@@ -9,25 +9,43 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-       // Clear all previous CAPTCHA session data
+    // Clear ALL per-challenge and meta session values when entering home
     Object.keys(sessionStorage).forEach((key) => {
       if (
         key.startsWith('captchaChallenge_') ||
         key === 'currentChallenge' ||
-        key === 'captchaStarted'
+        key === 'captchaStarted' ||
+        key === 'captchaStartTime' ||
+        key === 'captchaEndTime' ||
+        key === 'captchaCompleted'
       ) {
         sessionStorage.removeItem(key);
       }
     });
   }
-  startCaptcha() {
-      // Mark that a new CAPTCHA session has begun
-      sessionStorage.setItem('captchaStarted', 'true');
-      // Redirect to the first challenge
-      this.router.navigate(['/captcha']);
+    startCaptcha() {
+    // Object.keys(sessionStorage).forEach((key) => {
+    //   if (
+    //     key.startsWith('captchaChallenge_') ||
+    //     key === 'currentChallenge' ||
+    //     key === 'captchaStarted' ||
+    //     key === 'captchaStartTime' ||
+    //     key === 'captchaCompleted'
+    //   ) {
+    //     sessionStorage.removeItem(key);
+    //   }
+    // });
+
+    // Initialize new session state
+    const now = Date.now();
+    const readableStartTime = new Date(now).toLocaleString();
+
+    sessionStorage.setItem('captchaStarted', 'true');
+    sessionStorage.setItem('captchaStartTime', `${now} (${readableStartTime})`); // ← record the absolute start time
+    this.router.navigate(['/captcha']);
   }
 }

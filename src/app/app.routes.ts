@@ -8,6 +8,6 @@ export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'captcha', component: CaptchaComponent, canActivate: [CaptchaGuard] },
-    { path: 'result', component: ResultComponent, canActivate: [CaptchaGuard] },
+    { path: 'result', component: ResultComponent },
     { path: '**', redirectTo: 'home' } // fallback route
 ];

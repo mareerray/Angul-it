@@ -10,12 +10,19 @@ export class CaptchaGuard implements CanActivate {
 
     canActivate(): boolean {
     const started = sessionStorage.getItem('captchaStarted');
-        if (started) {
-            return true;
-        } else {
-            // redirect to start or home if CAPTCHA not initiated
-            this.router.navigate(['/home']);
-            return false;
-        }
+    const completed = sessionStorage.getItem('captchaCompleted');
+
+    // Block access to /captcha if completed
+    if (completed) {
+        this.router.navigate(['/result']);
+        return false;
+    }
+
+    // Allow if started but not completed
+    if (started && !completed) return true;
+
+    // Otherwise, send to home
+    this.router.navigate(['/home']);
+    return false;
     }
 }

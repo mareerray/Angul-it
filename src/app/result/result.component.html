@@ -1,1 +1,14 @@
-<p>result works!</p>
+<!-- <p>result works!</p> -->
+<div class="result-container">
+  <h1>Challenge Completed!</h1>
+
+  <p>All {{ totalChallenges }} challenges have been successfully completed.</p>
+
+  <h2 *ngIf="timeTaken > 0">
+    Time taken: <strong>{{ formattedTime }}</strong>
+  </h2>
+
+  <p class="performance pulse">{{ performanceMessage }}</p>
+
+  <button class="btn-main" (click)="startOver()">Start New Challenge</button>
+</div>

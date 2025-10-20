@@ -1,5 +1,5 @@
 <h2 class="captcha-title">
-  {{ challenges[currentChallengeIndex].prompt }}
+  {{ challenges[currentChallenge].prompt }}
 </h2>
 
 <div class="captcha-grid">
@@ -20,7 +20,7 @@
   <button 
     class="btn-main" 
     (click)="backChallenge()"
-    [disabled]="currentChallengeIndex === 0"
+    [disabled]="currentChallenge === 0"
   >
     Back
   </button>
@@ -28,14 +28,15 @@
     class="btn-main" 
     (click)="nextChallenge()" 
     [disabled]="!checkAnswers()"
-    *ngIf="currentChallengeIndex < challenges.length - 1"
+    *ngIf="currentChallenge < challenges.length - 1"
   >
     Next
   </button>
   <button 
     class="btn-main"
     [disabled]="!checkAnswers()"
-    *ngIf="currentChallengeIndex === challenges.length - 1"
+    *ngIf="currentChallenge === challenges.length - 1"
+    (click)="finishChallenge()"
   >
     Finish
   </button>

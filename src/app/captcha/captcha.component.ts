@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { ImageItem, GridChallenge } from './captcha.model';
 
@@ -11,6 +12,7 @@ import { ImageItem, GridChallenge } from './captcha.model';
 })
 
 export class CaptchaComponent implements OnInit {
+  constructor(private router: Router) {}
   challenges: GridChallenge[] = [
     // 1. Can Fly
     {
@@ -79,21 +81,36 @@ export class CaptchaComponent implements OnInit {
     
   ];
 
-  currentChallengeIndex = 0;
+  currentChallenge = 0;
   gridImages: ImageItem[] = [];
   userSelections: ImageItem[][] = [];
+  timerInterval: any;
+  formattedTime = '';
 
   ngOnInit() {
+    const startTime = Number(sessionStorage.getItem('captchaStartTime'));
     const savedIndex = sessionStorage.getItem('currentChallenge');
     if (savedIndex !== null) {
-      this.currentChallengeIndex = parseInt(savedIndex, 10) - 1;
+      this.currentChallenge = parseInt(savedIndex, 10) - 1;
     }
+    this.startTimer(startTime);
     this.loadCurrentChallenge();
+  }
+
+  startTimer(startTime: number) {
+    if (!startTime) return;
+    // Display live elapsed total time since home start
+    this.timerInterval = setInterval(() => {
+      const seconds = Math.floor((Date.now() - startTime) / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const remainder = seconds % 60;
+      this.formattedTime = `${minutes}m ${remainder}s`;
+    }, 1000);
   }
 
   saveProgress() {
   // Save the current challenge grid and progress separately
-    const key = `captchaChallenge_${this.currentChallengeIndex + 1}`;
+    const key = `captchaChallenge_${this.currentChallenge + 1}`;
     // Store only what’s needed for reconstruction
     const state = {
       gridImages: this.gridImages.map((img: ImageItem) => ({
@@ -103,7 +120,7 @@ export class CaptchaComponent implements OnInit {
       })) // Lightweight grid: no answer properties like canFly, oddOne, or correct
     };
     sessionStorage.setItem(key, JSON.stringify(state));
-    sessionStorage.setItem('currentChallenge', (this.currentChallengeIndex + 1).toString());
+    sessionStorage.setItem('currentChallenge', (this.currentChallenge + 1).toString());
   }
 
 
@@ -117,7 +134,7 @@ export class CaptchaComponent implements OnInit {
   }
 
   loadCurrentChallenge() {
-    const currentIndex = this.currentChallengeIndex;
+    const currentIndex = this.currentChallenge;
     const key = `captchaChallenge_${currentIndex + 1}`;
     const savedState = sessionStorage.getItem(key);
     const challengeImages = [...this.challenges[currentIndex].images];
@@ -144,27 +161,40 @@ export class CaptchaComponent implements OnInit {
   }
 
   checkAnswers() {
-    return this.challenges[this.currentChallengeIndex].answerCheck(this.gridImages);
-  }
-
-  nextChallenge() {
-    this.saveProgress();
-    if (this.currentChallengeIndex < this.challenges.length - 1) {
-      this.currentChallengeIndex++;
-      this.loadCurrentChallenge();
-      this.saveProgress();
-    } else {
-      console.log('All challenges completed');
-    }
+    return this.challenges[this.currentChallenge].answerCheck(this.gridImages);
   }
 
   backChallenge() {
     this.saveProgress();
-    if (this.currentChallengeIndex > 0) {
-      this.currentChallengeIndex--;
+    if (this.currentChallenge > 0) {
+      this.currentChallenge--;
       this.loadCurrentChallenge();
       this.saveProgress();
     }
+  }
+
+  nextChallenge() {
+    this.saveProgress();
+    if (this.currentChallenge < this.challenges.length - 1) {
+      this.currentChallenge++;
+      this.loadCurrentChallenge();
+      this.saveProgress();
+    } else {
+     // For the final challenge, mark completion and redirect
+    const endTime = Date.now();
+    sessionStorage.setItem('captchaEndTime', endTime.toString());
+    sessionStorage.setItem('captchaCompleted', 'true');
+    this.router.navigate(['/result'])
+    }
+  }
+
+  finishChallenge() {
+    this.saveProgress(); // preserve last state
+    const endTime = Date.now();
+    const readableEndTime = new Date(endTime).toLocaleString();
+    sessionStorage.setItem('captchaEndTime', `${endTime} (${readableEndTime})`);
+    sessionStorage.setItem('captchaCompleted', 'true'); // optional flag for guards
+    this.router.navigate(['/result']); // go to result page
   }
 }
 
