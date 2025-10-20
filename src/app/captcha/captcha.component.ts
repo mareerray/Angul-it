@@ -79,7 +79,7 @@ export class CaptchaComponent implements OnInit {
         { src: 'assets/images/math-3times3-9.png', alt: '3 × 3 = 9', selected: false, correct: true },
         { src: 'assets/images/math-6minus5-2.png', alt: '6 - 5 = 2', selected: false, correct: false },
         { src: 'assets/images/math-4plus4-8.png', alt: '4 + 4 = 8', selected: false, correct: true },
-        { src: 'assets/images/math-7minus1-6.png', alt: '7 - 1 = 5', selected: false, correct: false },
+        { src: 'assets/images/math-7minus1-6.png', alt: '7 - 1 = 5', selected: false, correct: true },
         { src: 'assets/images/math-8div2-4.png', alt: '8 / 2 = 4', selected: false, correct: true },
         { src: 'assets/images/math-5plus1-6.png', alt: '5 + 1 = 6', selected: false, correct: true },
         { src: 'assets/images/math-3plus3-5.png', alt: '3 + 3 = 5', selected: false, correct: false },

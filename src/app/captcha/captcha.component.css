@@ -3,27 +3,34 @@
   grid-template-columns: repeat(3, 1fr); /* 3 columns for a 3x3 grid */
   gap: 18px;
   margin: 24px auto 0 auto;
-  max-width: 800px;
+  max-width: 600px;
   width: 80%;
-  max-height: 800px;
+  max-height: 600px;
   height: 80%;
 }
 .captcha-cell {
   border-radius: 10px;
-  padding: 10px;
-  border: 2px solid #b76773;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border: 3px solid #b76773;
   cursor: pointer;
+  overflow: hidden;
   transition: border 0.2s, background 0.25s;
 }
 .captcha-cell.selected {
   border: 2px solid #DEA193;
-  background: #dcbab3;
+    background: #DEA193;
 }
 
 .captcha-image {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: contain;
+  border-radius: inherit;
+  object-position: center;
+  display: block;
 }
 
 .captcha-title {
