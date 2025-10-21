@@ -18,7 +18,7 @@ export class CaptchaGuard implements CanActivate {
         return false;
     }
 
-    // Allow if started but not completed
+    // Allow access if started but not completed
     if (started && !completed) return true;
 
     // Otherwise, send to home

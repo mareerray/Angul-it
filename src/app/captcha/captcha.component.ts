@@ -14,7 +14,7 @@ import { ImageItem, GridChallenge } from './captcha.model';
 export class CaptchaComponent implements OnInit {
   constructor(private router: Router) {}
   challenges: GridChallenge[] = [
-    // 1. Can Fly
+    // 1. Can Fly x 15
     {
       type: 'image-select',
       prompt: 'Select all images that can fly',
@@ -31,10 +31,13 @@ export class CaptchaComponent implements OnInit {
         { src: 'assets/images/lion.png', alt: 'lion', selected: false, canFly: false },
         { src: 'assets/images/elephant.png', alt: 'elephant', selected: false, canFly: false },
         { src: 'assets/images/gorilla.png', alt: 'gorilla', selected: false, canFly: false },
+        { src: 'assets/images/spaceship.png', alt: 'spaceship', selected: false, canFly: true },
+        { src: 'assets/images/bat.png', alt: 'bat', selected: false, canFly: true },
+        { src: 'assets/images/eagle.png', alt: 'eagle', selected: false, canFly: true },
       ],
       answerCheck: (imgs: ImageItem[]) => imgs.every(img => img.selected === !!img.canFly)
     },
-    // 2. Odd-One-Out
+    // 2. Odd-One-Out x 12
     {
       type: 'odd-one-out',
       prompt: 'Select the image that does not belong to the group',
@@ -53,30 +56,31 @@ export class CaptchaComponent implements OnInit {
         { src: 'assets/images/sailing-boat.png', alt: 'sailing boat', selected: false, oddOne: true }
       ],
       answerCheck: (imgs: ImageItem[]) => imgs.every(img => img.selected === !!img.oddOne)
-      // answerCheck: (imgs: ImageItem[]) =>
-      //   imgs.filter(img => img.selected).length === 1 &&
-      //   !!imgs.find(img => img.selected)?.oddOne
     },
-    // 3. Math
+    // 3. Math x 17
     {
       type: 'math-select',
-      prompt: 'Select all images with correct math answers',
+      prompt: 'Select all images with mathCorrect math answers',
       images: [
-        { src: 'assets/images/math-2plus2-4.png', alt: '2 + 2 = 4', selected: false, correct: true },
-        { src: 'assets/images/math-3times3-9.png', alt: '3 × 3 = 9', selected: false, correct: true },
-        { src: 'assets/images/math-6minus5-2.png', alt: '6 - 5 = 2', selected: false, correct: false },
-        { src: 'assets/images/math-4plus4-8.png', alt: '4 + 4 = 8', selected: false, correct: true },
-        { src: 'assets/images/math-7minus1-6.png', alt: '7 - 1 = 5', selected: false, correct: true },
-        { src: 'assets/images/math-8div2-4.png', alt: '8 / 2 = 4', selected: false, correct: true },
-        { src: 'assets/images/math-5plus1-6.png', alt: '5 + 1 = 6', selected: false, correct: true },
-        { src: 'assets/images/math-3plus3-5.png', alt: '3 + 3 = 5', selected: false, correct: false },
-        { src: 'assets/images/math-1plus1-2.png', alt: '1 + 1 = 2', selected: false, correct: true },
-        { src: 'assets/images/math-6mod4-2.png', alt: '6 % 4 = 2', selected: false, correct: true }, // Modulus
-        { src: 'assets/images/math-5mod3-3.png', alt: '5 % 3 = 3', selected: false, correct: false },
-        { src: 'assets/images/math-2pow3-8.png', alt: '2 ^ 3 = 8', selected: false, correct: true }, // Exponent (power)
-        { src: 'assets/images/math-3pow2-6.png', alt: '3 ^ 2 = 6', selected: false, correct: false }
+        { src: 'assets/images/math-2plus2-4.png', alt: '2 + 2 = 4', selected: false, mathCorrect: true },
+        { src: 'assets/images/math-3times3-9.png', alt: '3 × 3 = 9', selected: false, mathCorrect: true },
+        { src: 'assets/images/math-6minus5-2.png', alt: '6 - 5 = 2', selected: false, mathCorrect: false },
+        { src: 'assets/images/math-4plus4-8.png', alt: '4 + 4 = 8', selected: false, mathCorrect: true },
+        { src: 'assets/images/math-7minus1-6.png', alt: '7 - 1 = 5', selected: false, mathCorrect: true },
+        { src: 'assets/images/math-8div2-4.png', alt: '8 / 2 = 4', selected: false, mathCorrect: true },
+        { src: 'assets/images/math-5plus1-6.png', alt: '5 + 1 = 6', selected: false, mathCorrect: true },
+        { src: 'assets/images/math-1plus1-2.png', alt: '1 + 1 = 2', selected: false, mathCorrect: true },
+        { src: 'assets/images/math-4mod6-4.png', alt: '4 % 6 = 4', selected: false, mathCorrect: true },
+        { src: 'assets/images/math-6mod4-2.png', alt: '6 % 4 = 2', selected: false, mathCorrect: true }, // Modulus
+        { src: 'assets/images/math-5mod3-3.png', alt: '5 % 3 = 3', selected: false, mathCorrect: false },
+        { src: 'assets/images/math-2pow3-8.png', alt: '2³ = 8', selected: false, mathCorrect: true }, // Exponent (power)
+        { src: 'assets/images/math-3pow2-6.png', alt: '3² = 6', selected: false, mathCorrect: false },
+        { src: 'assets/images/math-3pow0-3.png', alt: '3⁰ = 3', selected: false, mathCorrect: false },
+        { src: 'assets/images/math-0pow3-0.png', alt: '0³ = 0', selected: false, mathCorrect: true },
+        { src: 'assets/images/math-5pow0-1.png', alt: '5⁰ = 1', selected: false, mathCorrect: true },
+        { src: 'assets/images/math-5pow2-25.png', alt: '5² = 25', selected: false, mathCorrect: true },
       ],
-      answerCheck: (imgs: ImageItem[]) => imgs.every(img => img.selected === !!img.correct)
+      answerCheck: (imgs: ImageItem[]) => imgs.every(img => img.selected === !!img.mathCorrect)
     },
     
   ];
@@ -86,6 +90,8 @@ export class CaptchaComponent implements OnInit {
   userSelections: ImageItem[][] = [];
   timerInterval: any;
   formattedTime = '';
+  //   timerInterval!: ReturnType<typeof setInterval>;
+  // formattedTime = '0m 0s';
 
   ngOnInit() {
     const startTime = Number(sessionStorage.getItem('captchaStartTime'));
@@ -99,7 +105,7 @@ export class CaptchaComponent implements OnInit {
 
   startTimer(startTime: number) {
     if (!startTime) return;
-    // Display live elapsed total time since home start
+    // Display live progress total time since click start
     this.timerInterval = setInterval(() => {
       const seconds = Math.floor((Date.now() - startTime) / 1000);
       const minutes = Math.floor(seconds / 60);
@@ -117,7 +123,7 @@ export class CaptchaComponent implements OnInit {
         src: img.src,
         alt: img.alt,
         selected: img.selected 
-      })) // Lightweight grid: no answer properties like canFly, oddOne, or correct
+      })) // Lightweight grid: no answer properties like canFly, oddOne, or mathCorrect
     };
     sessionStorage.setItem(key, JSON.stringify(state));
     sessionStorage.setItem('currentChallenge', (this.currentChallenge + 1).toString());
@@ -180,21 +186,21 @@ export class CaptchaComponent implements OnInit {
       this.loadCurrentChallenge();
       this.saveProgress();
     } else {
-     // For the final challenge, mark completion and redirect
-    const endTime = Date.now();
-    sessionStorage.setItem('captchaEndTime', endTime.toString());
-    sessionStorage.setItem('captchaCompleted', 'true');
-    this.router.navigate(['/result'])
+    // For the final challenge, mark completion and redirect
+    this.completeCaptchaRecord();
     }
   }
 
   finishChallenge() {
-    this.saveProgress(); // preserve last state
-    const endTime = Date.now();
+    this.completeCaptchaRecord();
+  }
+  // Helper function to complete captcha and redirect
+  private completeCaptchaRecord(endTime: number = Date.now()) {
     const readableEndTime = new Date(endTime).toLocaleString();
     sessionStorage.setItem('captchaEndTime', `${endTime} (${readableEndTime})`);
-    sessionStorage.setItem('captchaCompleted', 'true'); // optional flag for guards
-    this.router.navigate(['/result']); // go to result page
+    sessionStorage.setItem('captchaCompleted', 'true');
+    this.saveProgress();
+    this.router.navigate(['/result']);
   }
 }
 

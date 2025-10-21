@@ -28,24 +28,14 @@ export class HomeComponent implements OnInit {
     });
   }
     startCaptcha() {
-    // Object.keys(sessionStorage).forEach((key) => {
-    //   if (
-    //     key.startsWith('captchaChallenge_') ||
-    //     key === 'currentChallenge' ||
-    //     key === 'captchaStarted' ||
-    //     key === 'captchaStartTime' ||
-    //     key === 'captchaCompleted'
-    //   ) {
-    //     sessionStorage.removeItem(key);
-    //   }
-    // });
-
     // Initialize new session state
     const now = Date.now();
     const readableStartTime = new Date(now).toLocaleString();
 
     sessionStorage.setItem('captchaStarted', 'true');
-    sessionStorage.setItem('captchaStartTime', `${now} (${readableStartTime})`); // ← record the absolute start time
+    sessionStorage.setItem('captchaStartTime', now.toString()); // store numeric only
+    sessionStorage.setItem('captchaStartReadable', readableStartTime); // optional, for results display
+    // sessionStorage.setItem('captchaStartTime', `${now} (${readableStartTime})`); // ← record the absolute start time
     this.router.navigate(['/captcha']);
   }
 }

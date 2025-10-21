@@ -2,6 +2,10 @@
   {{ challenges[currentChallenge].prompt }}
 </h2>
 
+<div class="timer">
+  Your progress time: {{ formattedTime }}
+</div>
+
 <div class="captcha-grid">
   <div 
     *ngFor="let img of gridImages; let i = index"
@@ -24,6 +28,7 @@
   >
     Back
   </button>
+
   <button 
     class="btn-main" 
     (click)="nextChallenge()" 
@@ -32,6 +37,7 @@
   >
     Next
   </button>
+  
   <button 
     class="btn-main"
     [disabled]="!checkAnswers()"
@@ -42,22 +48,9 @@
   </button>
 </div>
 
+<p class="hint-text" *ngIf="!checkAnswers()">
+  {{ currentChallenge === challenges.length - 1
+    ? 'Complete this challenge to enable the “Finish” button.'
+    : 'Complete this challenge to enable the “Next” button.' }}
+</p>
 
-
-
-<!-- <p>captcha works!</p> -->
-<!-- <h2 class="captcha-title">Select all images that can fly</h2>
-<div class="captcha-grid">
-  <div 
-    *ngFor="let img of gridImages; let i = index"
-    class="captcha-cell"
-    (click)="selectImage(i)"
-    [class.selected]="img.selected"
-    [attr.aria-label]="img.alt"
-    tabindex="0"
-    role="button"
-  >
-    <img [src]="img.src" [alt]="img.alt" class="captcha-image" />
-  </div>
-</div>
-<button class="btn-main" (click)="checkAnswers()">Submit</button> -->

@@ -64,11 +64,11 @@ export class ResultComponent implements OnInit {
   getPerformanceMessage(seconds: number): string {
     if (seconds < 20)
       return 'Lightning fast! Your focus is unmatched ⚡';
-    if (seconds < 30)
-      return 'Excellent focus! Quick and accurate 🧠';
     if (seconds < 40)
-      return 'Well done! Balanced speed and precision 💪';
+      return 'Excellent focus! Quick and accurate 🧠';
     if (seconds < 50)
+      return 'Well done! Balanced speed and precision 💪';
+    if (seconds < 60)
       return 'Great job! You stayed consistent throughout 👏';
     return 'Persistence pays off — you saw it through! 🕒';
   }

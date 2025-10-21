@@ -6,7 +6,7 @@ export interface ImageItem {
   selected: boolean;
   canFly?: boolean;
   oddOne?: boolean;
-  correct?: boolean;
+  mathCorrect?: boolean;
 }
 
 export interface GridChallenge {

@@ -2,12 +2,13 @@
 
 :root {
   --color-main: #b76773;       /* tea rose red */
+  --color-text: #362222;       /* dark, readable text */
+  --color-button: linear-gradient(90deg, #dea193 0%, #b76773 100%);
+
   --color-accent: #DE5D83;     /* deep pink */
   --color-surface: #ECC5C0;    /* pink blush */
   --color-soft: #DEA193;       /* pale peach */
   --color-bg: #faeef2;         /* lavender blush */
-  --color-text: #362222;       /* dark, readable text */
-  --color-button: linear-gradient(90deg, #dea193 0%, #b76773 100%);
 }
 
 /* Page background and body text */
@@ -49,6 +50,7 @@ h2 {
   color: var(--color-main);
   font-weight: 500;
   margin-bottom: 0.5em;
+  text-decoration: dotted underline;
 }
 
 /* Button styles */
@@ -103,11 +105,6 @@ button :focus, .btn-main:focus {
     gap: 10px;
     width: 90%;
   } 
-
-  /* .captcha-controls {
-    max-width: 200px; 
-    gap: 16px;
-  } */
 
   button,
   .btn-main {
