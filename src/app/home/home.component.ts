@@ -14,16 +14,19 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // Clear ALL per-challenge and meta session values when entering home
-    Object.keys(sessionStorage).forEach((key) => {
+    Object.keys(localStorage).forEach((key) => {
       if (
         key.startsWith('captchaChallenge_') ||
         key === 'currentChallenge' ||
         key === 'captchaStarted' ||
         key === 'captchaStartTime' ||
         key === 'captchaEndTime' ||
-        key === 'captchaCompleted'
+        key === 'captchaCompleted' ||
+        key === 'captchaStartReadable' ||
+        key === 'captchaEndReadable'
       ) {
-        sessionStorage.removeItem(key);
+        localStorage.removeItem(key);
+        localStorage.clear();
       }
     });
   }
@@ -32,10 +35,10 @@ export class HomeComponent implements OnInit {
     const now = Date.now();
     const readableStartTime = new Date(now).toLocaleString();
 
-    sessionStorage.setItem('captchaStarted', 'true');
-    sessionStorage.setItem('captchaStartTime', now.toString()); // store numeric only
-    sessionStorage.setItem('captchaStartReadable', readableStartTime); // optional, for results display
-    // sessionStorage.setItem('captchaStartTime', `${now} (${readableStartTime})`); // ← record the absolute start time
+    localStorage.setItem('captchaStarted', 'true');
+    localStorage.setItem('captchaStartTime', now.toString()); // store numeric only
+    localStorage.setItem('captchaStartReadable', readableStartTime); // optional, for results display
+    // localStorage.setItem('captchaStartTime', `${now} (${readableStartTime})`); // ← record the absolute start time
     this.router.navigate(['/captcha']);
   }
 }

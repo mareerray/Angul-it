@@ -18,11 +18,11 @@ export class ResultComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    const keys = Object.keys(sessionStorage).filter((key) =>
+    const keys = Object.keys(localStorage).filter((key) =>
       key.startsWith('captchaChallenge_')
     );
 
-      const completed = sessionStorage.getItem('captchaCompleted');
+      const completed = localStorage.getItem('captchaCompleted');
     if (!completed) {
       this.router.navigate(['/captcha']);
       return;
@@ -36,8 +36,8 @@ export class ResultComponent implements OnInit {
     this.totalChallenges = keys.length;
 
     // Retrieve start and end times
-    const startTimeRaw = sessionStorage.getItem('captchaStartTime');
-    const endTimeRaw = sessionStorage.getItem('captchaEndTime');
+    const startTimeRaw = localStorage.getItem('captchaStartTime');
+    const endTimeRaw = localStorage.getItem('captchaEndTime');
 
     const start = Number(startTimeRaw?.split(' ')[0]);
     const end = Number(endTimeRaw?.split(' ')[0]);
@@ -74,7 +74,7 @@ export class ResultComponent implements OnInit {
   }
 
   startOver() {
-    sessionStorage.clear();
+    localStorage.clear();
     this.router.navigate(['/home']);
   }
 }

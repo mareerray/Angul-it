@@ -94,8 +94,8 @@ export class CaptchaComponent implements OnInit {
   // formattedTime = '0m 0s';
 
   ngOnInit() {
-    const startTime = Number(sessionStorage.getItem('captchaStartTime'));
-    const savedIndex = sessionStorage.getItem('currentChallenge');
+    const startTime = Number(localStorage.getItem('captchaStartTime'));
+    const savedIndex = localStorage.getItem('currentChallenge');
     if (savedIndex !== null) {
       this.currentChallenge = parseInt(savedIndex, 10) - 1;
     }
@@ -114,35 +114,10 @@ export class CaptchaComponent implements OnInit {
     }, 1000);
   }
 
-  saveProgress() {
-  // Save the current challenge grid and progress separately
-    const key = `captchaChallenge_${this.currentChallenge + 1}`;
-    // Store only what’s needed for reconstruction
-    const state = {
-      gridImages: this.gridImages.map((img: ImageItem) => ({
-        src: img.src,
-        alt: img.alt,
-        selected: img.selected 
-      })) // Lightweight grid: no answer properties like canFly, oddOne, or mathCorrect
-    };
-    sessionStorage.setItem(key, JSON.stringify(state));
-    sessionStorage.setItem('currentChallenge', (this.currentChallenge + 1).toString());
-  }
-
-
-  selectImage(index: number) {
-    this.gridImages[index].selected = !this.gridImages[index].selected;
-    this.saveProgress();
-  }
-
-  hasSelection(): boolean {
-    return this.gridImages.some(img => img.selected);
-  }
-
-  loadCurrentChallenge() {
+    loadCurrentChallenge() {
     const currentIndex = this.currentChallenge;
     const key = `captchaChallenge_${currentIndex + 1}`;
-    const savedState = sessionStorage.getItem(key);
+    const savedState = localStorage.getItem(key);
     const challengeImages = [...this.challenges[currentIndex].images];
 
     if (savedState) {
@@ -164,6 +139,31 @@ export class CaptchaComponent implements OnInit {
       this.gridImages = shuffled.slice(0, 9).map(img => ({ ...img }));
       this.saveProgress();
     }
+  }
+
+  saveProgress() {
+  // Save the current challenge grid and progress separately
+    const key = `captchaChallenge_${this.currentChallenge + 1}`;
+    // Store only what’s needed for reconstruction
+    const state = {
+      gridImages: this.gridImages.map((img: ImageItem) => ({
+        src: img.src,
+        alt: img.alt,
+        selected: img.selected 
+      })) // Lightweight grid: no answer properties like canFly, oddOne, or mathCorrect
+    };
+    localStorage.setItem(key, JSON.stringify(state));
+    localStorage.setItem('currentChallenge', (this.currentChallenge + 1).toString());
+  }
+
+
+  selectImage(index: number) {
+    this.gridImages[index].selected = !this.gridImages[index].selected;
+    this.saveProgress();
+  }
+
+  hasSelection(): boolean {
+    return this.gridImages.some(img => img.selected);
   }
 
   checkAnswers() {
@@ -197,8 +197,8 @@ export class CaptchaComponent implements OnInit {
   // Helper function to complete captcha and redirect
   private completeCaptchaRecord(endTime: number = Date.now()) {
     const readableEndTime = new Date(endTime).toLocaleString();
-    sessionStorage.setItem('captchaEndTime', `${endTime} (${readableEndTime})`);
-    sessionStorage.setItem('captchaCompleted', 'true');
+    localStorage.setItem('captchaEndTime', `${endTime} (${readableEndTime})`);
+    localStorage.setItem('captchaCompleted', 'true');
     this.saveProgress();
     this.router.navigate(['/result']);
   }

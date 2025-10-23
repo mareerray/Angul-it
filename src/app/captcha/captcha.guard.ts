@@ -9,8 +9,8 @@ export class CaptchaGuard implements CanActivate {
     constructor(private router: Router) {}
 
     canActivate(): boolean {
-    const started = sessionStorage.getItem('captchaStarted');
-    const completed = sessionStorage.getItem('captchaCompleted');
+    const started = localStorage.getItem('captchaStarted');
+    const completed = localStorage.getItem('captchaCompleted');
 
     // Block access to /captcha if completed
     if (completed) {
