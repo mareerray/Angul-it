@@ -60,7 +60,7 @@ export class CaptchaComponent implements OnInit {
     // 3. Math x 17
     {
       type: 'math-select',
-      prompt: 'Select all images with mathCorrect math answers',
+      prompt: 'Select all images with correct math answers',
       images: [
         { src: 'assets/images/math-2plus2-4.png', alt: '2 + 2 = 4', selected: false, mathCorrect: true },
         { src: 'assets/images/math-3times3-9.png', alt: '3 × 3 = 9', selected: false, mathCorrect: true },

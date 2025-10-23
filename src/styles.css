@@ -72,7 +72,7 @@ button, .btn-main {
 
 button :hover, .btn-main:hover,
 button :focus, .btn-main:focus {
-  background: var(--color-color);
+  background: var(--color-button);
   box-shadow: 0 6px 22px 0 rgba(178, 103, 115, 0.23);
   transform: translateY(-2px) scale(1.03);
 }

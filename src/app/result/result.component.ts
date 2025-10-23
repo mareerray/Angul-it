@@ -70,7 +70,7 @@ export class ResultComponent implements OnInit {
       return 'Well done! Balanced speed and precision 💪';
     if (seconds < 60)
       return 'Great job! You stayed consistent throughout 👏';
-    return 'Persistence pays off — you saw it through! 🕒';
+    return 'Persistence pays off — you are not a robot after all! 🕒';
   }
 
   startOver() {
