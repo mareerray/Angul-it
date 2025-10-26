@@ -22,8 +22,8 @@
   </div>
 </div>
 
-<p class="error-text" *ngIf="errorMessage">
-  {{ errorMessage }}
+<p class="error-text" *ngIf="errorMessages[currentChallenge]">
+  {{ errorMessages[currentChallenge] }}
 </p>
 
 <p class="hint-text" *ngIf="!isCompleted">

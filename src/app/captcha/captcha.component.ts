@@ -92,10 +92,8 @@ export class CaptchaComponent implements OnInit {
   formattedTime = '';
   attempts = 0;
   maxAttempts = 3;
-  errorMessage = '';
+  errorMessages : string[] = [];
   isCompleted = false;
-  //   timerInterval!: ReturnType<typeof setInterval>;
-  // formattedTime = '0m 0s';
 
   ngOnInit() {
     const startTime = Number(localStorage.getItem('captchaStartTime'));
@@ -118,7 +116,7 @@ export class CaptchaComponent implements OnInit {
     }, 1000);
   }
 
-    loadCurrentChallenge() {
+  loadCurrentChallenge() {
     const currentIndex = this.currentChallenge;
     const key = `captchaChallenge_${currentIndex + 1}`;
     const savedState = localStorage.getItem(key);
@@ -126,14 +124,19 @@ export class CaptchaComponent implements OnInit {
 
     if (savedState) {
       // Recover exact same grid (no re-shuffling)
-      const { gridImages, isCompleted, attempts } = JSON.parse(savedState);
+      const { gridImages, attempts } = JSON.parse(savedState);
       // Restore exactly the same 9 images (grid subset from previous session)
       this.gridImages = gridImages.map((saved: ImageItem) => {
         const base = challengeImages.find((img: ImageItem) => img.src === saved.src);
         return base ? { ...base, selected: saved.selected } : saved;
       });
-      this.isCompleted = isCompleted || false; // Reset completion state too
-      this.attempts = attempts || 0;
+      // Recompute completion based on the actual answer, ignore stored isCompleted
+      this.isCompleted = this.checkAnswers(); // Reset completion state too
+      this.attempts = 0;
+       // If no error set for this challenge, ensure it's empty
+      if (!this.errorMessages[this.currentChallenge]) {
+        this.errorMessages[this.currentChallenge] = '';
+      }
     } else {
       // Generate fresh grid and save for the first time
       const shuffled = [...challengeImages];
@@ -159,8 +162,7 @@ export class CaptchaComponent implements OnInit {
         alt: img.alt,
         selected: img.selected 
       })), // Lightweight grid: no answer properties like canFly, oddOne, or mathCorrect
-      isCompleted: this.isCompleted,  // Save completion state per challenge
-      attempts: this.attempts // Save attempts per challenge
+      // attempts: this.attempts // Save attempts per challenge
     };
     localStorage.setItem(key, JSON.stringify(state));
     localStorage.setItem('currentChallenge', (this.currentChallenge + 1).toString());
@@ -184,19 +186,19 @@ export class CaptchaComponent implements OnInit {
   checkUserAnswer() {
     if (this.checkAnswers()) {
       this.isCompleted = true;
-      this.errorMessage = ''; 
+      this.errorMessages[this.currentChallenge] = ''; 
       // enable Next button
     } else {
       this.attempts++;
       this.isCompleted = false;
-      this.errorMessage = `Incorrect selection. Please try again. (${this.attempts} of ${this.maxAttempts} attempts)`;
+      this.errorMessages[this.currentChallenge] = `Incorrect selection. Please try again. (${this.attempts} of ${this.maxAttempts} attempts)`;
 
       if (this.attempts >= this.maxAttempts) {
         // Remove saved challenge state so fresh grid is created
         const key = `captchaChallenge_${this.currentChallenge + 1}`;
         localStorage.removeItem(key);
         this.loadCurrentChallenge();
-        this.errorMessage = 'Challenge has been reset – too many failed attempts.';
+        this.errorMessages[this.currentChallenge] = 'Challenge has been reset – too many failed attempts.';
         this.attempts = 0; // Reset counter after reload 
       }
       // Show error and lock if needed
@@ -208,8 +210,10 @@ export class CaptchaComponent implements OnInit {
     this.saveProgress();
     if (this.currentChallenge > 0) {
       this.currentChallenge--;
-      this.loadCurrentChallenge();
-      this.saveProgress();
+      setTimeout(() => {
+        this.loadCurrentChallenge();
+        this.saveProgress();
+      }, 0); // Delay actual loading to the end of the event loop reducing flicker and loading delays.
     }
   }
 
@@ -217,8 +221,10 @@ export class CaptchaComponent implements OnInit {
     this.saveProgress();
     if (this.currentChallenge < this.challenges.length - 1) {
       this.currentChallenge++;
-      this.loadCurrentChallenge();
-      this.saveProgress();
+      setTimeout(() => {
+        this.loadCurrentChallenge();
+        this.saveProgress();
+      }, 0); // Delay actual loading to the end of the event loop
     } else {
     // For the final challenge, mark completion and redirect
     this.completeCaptchaRecord();
