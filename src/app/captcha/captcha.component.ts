@@ -90,6 +90,10 @@ export class CaptchaComponent implements OnInit {
   userSelections: ImageItem[][] = [];
   timerInterval: any;
   formattedTime = '';
+  attempts = 0;
+  maxAttempts = 3;
+  errorMessage = '';
+  isCompleted = false;
   //   timerInterval!: ReturnType<typeof setInterval>;
   // formattedTime = '0m 0s';
 
@@ -122,18 +126,22 @@ export class CaptchaComponent implements OnInit {
 
     if (savedState) {
       // Recover exact same grid (no re-shuffling)
-      const { gridImages } = JSON.parse(savedState);
+      const { gridImages, isCompleted, attempts } = JSON.parse(savedState);
       // Restore exactly the same 9 images (grid subset from previous session)
       this.gridImages = gridImages.map((saved: ImageItem) => {
         const base = challengeImages.find((img: ImageItem) => img.src === saved.src);
         return base ? { ...base, selected: saved.selected } : saved;
       });
+      this.isCompleted = isCompleted || false; // Reset completion state too
+      this.attempts = attempts || 0;
     } else {
       // Generate fresh grid and save for the first time
       const shuffled = [...challengeImages];
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        this.attempts = 0;
+        this.isCompleted = false;
       }
       // Save a fixed 9-image grid per challenge
       this.gridImages = shuffled.slice(0, 9).map(img => ({ ...img }));
@@ -150,7 +158,9 @@ export class CaptchaComponent implements OnInit {
         src: img.src,
         alt: img.alt,
         selected: img.selected 
-      })) // Lightweight grid: no answer properties like canFly, oddOne, or mathCorrect
+      })), // Lightweight grid: no answer properties like canFly, oddOne, or mathCorrect
+      isCompleted: this.isCompleted,  // Save completion state per challenge
+      attempts: this.attempts // Save attempts per challenge
     };
     localStorage.setItem(key, JSON.stringify(state));
     localStorage.setItem('currentChallenge', (this.currentChallenge + 1).toString());
@@ -168,6 +178,30 @@ export class CaptchaComponent implements OnInit {
 
   checkAnswers() {
     return this.challenges[this.currentChallenge].answerCheck(this.gridImages);
+  }
+
+  // This is the click handler for the user, runs the logic
+  checkUserAnswer() {
+    if (this.checkAnswers()) {
+      this.isCompleted = true;
+      this.errorMessage = ''; 
+      // enable Next button
+    } else {
+      this.attempts++;
+      this.isCompleted = false;
+      this.errorMessage = `Incorrect selection. Please try again. (${this.attempts} of ${this.maxAttempts} attempts)`;
+
+      if (this.attempts >= this.maxAttempts) {
+        // Remove saved challenge state so fresh grid is created
+        const key = `captchaChallenge_${this.currentChallenge + 1}`;
+        localStorage.removeItem(key);
+        this.loadCurrentChallenge();
+        this.errorMessage = 'Challenge has been reset – too many failed attempts.';
+        this.attempts = 0; // Reset counter after reload 
+      }
+      // Show error and lock if needed
+    }
+    this.saveProgress(); // Always update session state
   }
 
   backChallenge() {

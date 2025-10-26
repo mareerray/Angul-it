@@ -10,15 +10,27 @@
   <div 
     *ngFor="let img of gridImages; let i = index"
     class="captcha-cell"
-    (click)="selectImage(i)"
+    (click)="isCompleted ? null : selectImage(i)"
     [class.selected]="img.selected"
+    [class.locked]="isCompleted"
     [attr.aria-label]="img.alt"
     tabindex="0"
     role="button"
   >
     <img [src]="img.src" [alt]="img.alt" class="captcha-image" />
+    <span *ngIf="isCompleted" class="grid-overlay">COMPLETED</span>
   </div>
 </div>
+
+<p class="error-text" *ngIf="errorMessage">
+  {{ errorMessage }}
+</p>
+
+<p class="hint-text" *ngIf="!isCompleted">
+  {{ currentChallenge === challenges.length - 1
+    ? 'Submit the correct answer to enable the “Finish” button.'
+    : 'Submit the correct answer to enable the “Next” button.' }}
+</p>
 
 <div class="captcha-controls">
   <button 
@@ -29,10 +41,18 @@
     Back
   </button>
 
+   <button 
+    class="btn-main" 
+    (click)="checkUserAnswer()"
+    [disabled]="isCompleted"  
+  >
+    Submit
+  </button>
+
   <button 
     class="btn-main" 
     (click)="nextChallenge()" 
-    [disabled]="!checkAnswers()"
+    [disabled]="!isCompleted"
     *ngIf="currentChallenge < challenges.length - 1"
   >
     Next
@@ -40,7 +60,7 @@
   
   <button 
     class="btn-main"
-    [disabled]="!checkAnswers()"
+    [disabled]="!isCompleted"
     *ngIf="currentChallenge === challenges.length - 1"
     (click)="finishChallenge()"
   >
@@ -48,9 +68,4 @@
   </button>
 </div>
 
-<p class="hint-text" *ngIf="!checkAnswers()">
-  {{ currentChallenge === challenges.length - 1
-    ? 'Complete this challenge to enable the “Finish” button.'
-    : 'Complete this challenge to enable the “Next” button.' }}
-</p>
 

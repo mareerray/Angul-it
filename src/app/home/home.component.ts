@@ -35,9 +35,9 @@ export class HomeComponent implements OnInit {
     const now = Date.now();
     const readableStartTime = new Date(now).toLocaleString();
 
-    sessionStorage.setItem('captchaStarted', 'true');
-    sessionStorage.setItem('captchaStartTime', now.toString()); // store numeric only
-    sessionStorage.setItem('captchaStartReadable', readableStartTime); // optional, for results display
+    localStorage.setItem('captchaStarted', 'true');
+    localStorage.setItem('captchaStartTime', now.toString()); // store numeric only
+    localStorage.setItem('captchaStartReadable', readableStartTime); // optional, for results display
     this.router.navigate(['/captcha']);
   }
 }
