@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -8,21 +8,40 @@ export class CaptchaGuard implements CanActivate {
 
     constructor(private router: Router) {}
 
-    canActivate(): boolean {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const started = localStorage.getItem('captchaStarted');
     const completed = localStorage.getItem('captchaCompleted');
+    const attemptingUrl = state.url;
 
-    // Block access to /captcha if completed
+    // If captcha is completed, allow access except blocking '/captcha'
     if (completed) {
-        this.router.navigate(['/result']);
-        return false;
+        if (attemptingUrl === '/captcha') {
+            this.router.navigate(['/result']);
+            return false;
+        }
+        return true;
     }
 
-    // Allow access if started but not completed
-    if (started && !completed) return true;
+    // If captcha started but not completed
+    if (started === 'true' && !completed) {
+        // Only allow access to '/captcha' route, block '/home', '/result' or '/other'
+        if (attemptingUrl !== '/captcha') {
+            this.router.navigate(['/captcha']);
+            return false;
+        }
+        return true;
+    }
 
-    // Otherwise, send to home
-    this.router.navigate(['/home']);
-    return false;
+    // If captcha is not started and not completed, block '/captcha', '/result', or '/other', only allow '/home'
+    if (!started && !completed) {
+        if (attemptingUrl !== '/home') {
+            this.router.navigate(['/home']);
+            return false;
+        }
+        return true;
+    }
+    // Default:, block everything else
+        this.router.navigate(['/home']);
+        return false;
     }
 }

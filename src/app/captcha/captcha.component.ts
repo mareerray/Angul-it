@@ -87,11 +87,8 @@ export class CaptchaComponent implements OnInit {
 
   currentChallenge = 0;
   gridImages: ImageItem[] = [];
-  userSelections: ImageItem[][] = [];
   timerInterval: any;
   formattedTime = '';
-  attempts = 0;
-  maxAttempts = 3;
   errorMessages : string[] = [];
   isCompleted = false;
 
@@ -122,20 +119,31 @@ export class CaptchaComponent implements OnInit {
     const savedState = localStorage.getItem(key);
     const challengeImages = [...this.challenges[currentIndex].images];
 
+    // Restore error message from 
+    const errorKey = `captchaError_${currentIndex + 1}`;
+    const savedError = localStorage.getItem(errorKey);
+    this.errorMessages[currentIndex] = savedError ? savedError : '';
+
     if (savedState) {
       // Recover exact same grid (no re-shuffling)
-      const { gridImages, attempts } = JSON.parse(savedState);
+      const { gridImages} = JSON.parse(savedState);
       // Restore exactly the same 9 images (grid subset from previous session)
       this.gridImages = gridImages.map((saved: ImageItem) => {
         const base = challengeImages.find((img: ImageItem) => img.src === saved.src);
         return base ? { ...base, selected: saved.selected } : saved;
       });
-      // Recompute completion based on the actual answer, ignore stored isCompleted
-      this.isCompleted = this.checkAnswers(); // Reset completion state too
-      this.attempts = 0;
-       // If no error set for this challenge, ensure it's empty
+      // If the grid is correctly answered on reload, mark as complete and clear error message
+      if (this.checkAnswers()) {
+        this.isCompleted = true;
+        this.errorMessages[this.currentChallenge] = '';
+        localStorage.removeItem(`captchaError_${this.currentChallenge + 1}`); // Clear error
+
+      }
+      // If no error set for this challenge, ensure it's empty
       if (!this.errorMessages[this.currentChallenge]) {
         this.errorMessages[this.currentChallenge] = '';
+        localStorage.removeItem(`captchaError_${this.currentChallenge + 1}`); // Clear error
+
       }
     } else {
       // Generate fresh grid and save for the first time
@@ -143,7 +151,6 @@ export class CaptchaComponent implements OnInit {
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        this.attempts = 0;
         this.isCompleted = false;
       }
       // Save a fixed 9-image grid per challenge
@@ -162,7 +169,6 @@ export class CaptchaComponent implements OnInit {
         alt: img.alt,
         selected: img.selected 
       })), // Lightweight grid: no answer properties like canFly, oddOne, or mathCorrect
-      // attempts: this.attempts // Save attempts per challenge
     };
     localStorage.setItem(key, JSON.stringify(state));
     localStorage.setItem('currentChallenge', (this.currentChallenge + 1).toString());
@@ -187,21 +193,18 @@ export class CaptchaComponent implements OnInit {
     if (this.checkAnswers()) {
       this.isCompleted = true;
       this.errorMessages[this.currentChallenge] = ''; 
+      localStorage.removeItem(`captchaError_${this.currentChallenge + 1}`); // Clear error when correct
       // enable Next button
     } else {
-      this.attempts++;
       this.isCompleted = false;
-      this.errorMessages[this.currentChallenge] = `Incorrect selection. Please try again. (${this.attempts} of ${this.maxAttempts} attempts)`;
-
-      if (this.attempts >= this.maxAttempts) {
-        // Remove saved challenge state so fresh grid is created
-        const key = `captchaChallenge_${this.currentChallenge + 1}`;
-        localStorage.removeItem(key);
-        this.loadCurrentChallenge();
-        this.errorMessages[this.currentChallenge] = 'Challenge has been reset – too many failed attempts.';
-        this.attempts = 0; // Reset counter after reload 
-      }
-      // Show error and lock if needed
+      this.errorMessages[this.currentChallenge] = `Incorrect selection. Please try again.`;
+      localStorage.setItem(`captchaError_${this.currentChallenge + 1}`, this.errorMessages[this.currentChallenge]);
+    
+      // Cleae error after 3 seconds
+      setTimeout(() => {
+        this.errorMessages[this.currentChallenge] = '';
+        localStorage.removeItem(`captchaError_${this.currentChallenge + 1}`);
+      }, 3000);
     }
     this.saveProgress(); // Always update session state
   }

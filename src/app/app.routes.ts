@@ -6,8 +6,8 @@ import { ResultComponent } from './result/result.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
+    { path: 'home', component: HomeComponent, canActivate: [CaptchaGuard] },
     { path: 'captcha', component: CaptchaComponent, canActivate: [CaptchaGuard] },
-    { path: 'result', component: ResultComponent },
+    { path: 'result', component: ResultComponent, canActivate: [CaptchaGuard] },
     { path: '**', redirectTo: 'home' } // fallback route
 ];
