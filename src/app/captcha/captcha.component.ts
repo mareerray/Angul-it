@@ -40,7 +40,7 @@ export class CaptchaComponent implements OnInit {
     // 2. Odd-One-Out x 12
     {
       type: 'odd-one-out',
-      prompt: 'Select the image that does not belong to the group',
+      prompt: 'Select the image that is not animal',
       images: [
         { src: 'assets/images/cat.png', alt: 'cat', selected: false, oddOne: false },
         { src: 'assets/images/dog.png', alt: 'dog', selected: false, oddOne: false },
@@ -123,6 +123,7 @@ export class CaptchaComponent implements OnInit {
     const errorKey = `captchaError_${currentIndex + 1}`;
     const savedError = localStorage.getItem(errorKey);
     this.errorMessages[currentIndex] = savedError ? savedError : '';
+    this.isCompleted = false;
 
     if (savedState) {
       // Recover exact same grid (no re-shuffling)
