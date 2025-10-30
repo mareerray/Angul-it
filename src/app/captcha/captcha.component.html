@@ -34,9 +34,16 @@
 
 <div class="captcha-controls">
   <button 
+  class="btn-main" 
+  *ngIf="currentChallenge === 0"
+  (click)="exitCaptcha()"
+  >
+    Exit
+  </button>
+  <button 
     class="btn-main" 
+    *ngIf="currentChallenge > 0"
     (click)="backChallenge()"
-    [disabled]="currentChallenge === 0"
   >
     Back
   </button>

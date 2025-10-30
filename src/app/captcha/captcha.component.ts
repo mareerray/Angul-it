@@ -209,6 +209,16 @@ export class CaptchaComponent implements OnInit {
     this.saveProgress(); // Always update session state
   }
 
+  exitCaptcha() {
+  // Clear all captcha-related localStorage data
+  Object.keys(localStorage).forEach(key => {
+    if (key.startsWith('captcha')) localStorage.removeItem(key);
+  });
+  // Optionally clear other session flags here
+  this.router.navigate(['/home']);
+}
+
+
   backChallenge() {
     this.saveProgress();
     if (this.currentChallenge > 0) {
