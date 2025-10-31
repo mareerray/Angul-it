@@ -175,7 +175,6 @@ export class CaptchaComponent implements OnInit {
     localStorage.setItem('currentChallenge', (this.currentChallenge + 1).toString());
   }
 
-
   selectImage(index: number) {
     this.gridImages[index].selected = !this.gridImages[index].selected;
     this.saveProgress();
@@ -199,6 +198,11 @@ export class CaptchaComponent implements OnInit {
     } else {
       this.isCompleted = false;
       this.errorMessages[this.currentChallenge] = `Incorrect selection. Please try again.`;
+      // RETRIES: Correctly increment the retry counter every wrong answer
+      const retryKey = `captchaRetries_${this.currentChallenge + 1}`;
+      const currentRetry = parseInt(localStorage.getItem(retryKey) || '0', 10);
+      localStorage.setItem(retryKey, (currentRetry + 1).toString());
+
       localStorage.setItem(`captchaError_${this.currentChallenge + 1}`, this.errorMessages[this.currentChallenge]);
     
       // Cleae error after 3 seconds

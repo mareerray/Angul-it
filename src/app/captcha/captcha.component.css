@@ -27,7 +27,7 @@
 }
 .captcha-cell.selected {
   border: 2px solid #DEA193;
-    background: #DEA193;
+  background: #DEA193;
 }
 
 .captcha-image {

@@ -13,7 +13,11 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Clear ALL per-challenge and meta session values when entering home
+    localStorage.removeItem('currentChallenge');
+    // Do not clear localStorage here to preserve session state
+  }
+    startCaptcha() {
+    // Clear ALL per-challenge and meta session values when starting a new captcha session
     Object.keys(localStorage).forEach((key) => {
       if (
         key.startsWith('captchaChallenge_') ||
@@ -23,14 +27,12 @@ export class HomeComponent implements OnInit {
         key === 'captchaEndTime' ||
         key === 'captchaCompleted' ||
         key === 'captchaStartReadable' ||
-        key === 'captchaEndReadable'
+        key === 'captchaEndReadable' ||
+        key.startsWith('captchaRetries_') 
       ) {
         localStorage.removeItem(key);
-        localStorage.clear();
       }
     });
-  }
-    startCaptcha() {
     // Initialize new session state
     const now = Date.now();
     const readableStartTime = new Date(now).toLocaleString();
