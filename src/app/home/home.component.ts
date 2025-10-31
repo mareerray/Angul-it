@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     localStorage.removeItem('currentChallenge');
-    // Do not clear localStorage here to preserve session state
   }
     startCaptcha() {
     // Clear ALL per-challenge and meta session values when starting a new captcha session

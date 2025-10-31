@@ -1,6 +1,9 @@
 {
   "name": "angul-it",
   "version": "0.0.0",
+    "overrides": {
+    "vite": "7.1.11"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
