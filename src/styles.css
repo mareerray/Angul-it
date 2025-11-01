@@ -4,11 +4,6 @@
   --color-main: #b76773;       /* tea rose red */
   --color-text: #362222;       /* dark, readable text */
   --color-button: linear-gradient(90deg, #dea193 0%, #b76773 100%);
-
-  --color-accent: #DE5D83;     /* deep pink */
-  --color-surface: #ECC5C0;    /* pink blush */
-  --color-soft: #DEA193;       /* pale peach */
-  --color-bg: #faeef2;         /* lavender blush */
 }
 
 /* Page background and body text */
@@ -17,7 +12,6 @@ html, body {
   background-image: url("/assets/images/newbg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  /* background-attachment: fixed; */
   background-position: center;
   color: var(--color-text);
   font-family: "Roboto", Arial, sans-serif;

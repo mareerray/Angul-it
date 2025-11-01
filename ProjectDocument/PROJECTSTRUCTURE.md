@@ -8,7 +8,6 @@ src/
 │   ├── app.html        // Root app template (usually contains <router-outlet>).
 │   ├── app.css         // Styles specific to the root layout (can remove if unused).  -- (optional)
 │   ├── app.routes.ts   // Defines router paths (home, captcha, result).
-│   ├── app.spec.ts     // Unit test file for app-level behavior.
 │   ├── app.config.ts   // Global app configuration for standalone setup.
 │   ├── app.ts          // Root standalone component; connects template, styles, and routing.
 │   │
@@ -28,6 +27,9 @@ src/
 │   │   ├── result.component.ts   // Result component logic.
 │   │   ├── result.component.html // Result layout template.
 │   │   ├── result.component.css      // Styles for the Result page.  -- (optional)
+│   │
+│   ├── utils/         // A folder for shared helper files and utility functions used throughout the app.
+│   │   ├── session.ts   // A helper file for starting, resetting, and clearing CAPTCHA session data in localStorage.
 │   │
 └── assets/             // Static files like images, icons, and fonts.
     └── images/         // Project images used across pages.

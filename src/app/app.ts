@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { clearCaptchaSession } from './utils/session';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +17,7 @@ export class App implements OnInit {
   ngOnInit() {
     const STORED_VERSION = localStorage.getItem('captchaVersion');
     if (STORED_VERSION !== this.CURRENT_VERSION) {
-      // Remove only captcha-related keys
-      Object.keys(localStorage)
-        .filter(key => key.startsWith('captcha') || key.startsWith('challengeCompleted_'))
-        .forEach(key => localStorage.removeItem(key));
+      clearCaptchaSession();
       localStorage.setItem('captchaVersion', this.CURRENT_VERSION);
     }
   }

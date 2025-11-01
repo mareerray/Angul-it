@@ -15,7 +15,7 @@ export interface GridChallenge {
 }
 
 export const CHALLENGES: GridChallenge[] = [
-    // 1. Can Fly x 15
+    // 1. Can Fly x 15 images
     {
       type: 'image-select',
       prompt: 'Click all the images that show something that can fly.',
@@ -38,7 +38,7 @@ export const CHALLENGES: GridChallenge[] = [
       ],
       answerCheck: (imgs: ImageItem[]) => imgs.every(img => img.selected === !!img.canFly)
     },
-    // 2. Odd-One-Out x 12
+    // 2. Odd-One-Out x 12 images
     {
       type: 'odd-one-out',
       prompt: 'Which picture does not show an animal?',
@@ -58,7 +58,7 @@ export const CHALLENGES: GridChallenge[] = [
       ],
       answerCheck: (imgs: ImageItem[]) => imgs.every(img => img.selected === !!img.oddOne)
     },
-    // 3. Math x 17
+    // 3. Math x 17 images
     {
       type: 'math-select',
       prompt: 'Pick all images where the math answer is correct',
