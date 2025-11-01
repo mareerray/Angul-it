@@ -18,7 +18,7 @@ export const CHALLENGES: GridChallenge[] = [
     // 1. Can Fly x 15
     {
       type: 'image-select',
-      prompt: 'Select all images that can fly',
+      prompt: 'Click all the images that show something that can fly.',
       images: [
         { src: 'assets/images/hot-air-balloon.png', alt: 'hot air balloon', selected: false, canFly: true },
         { src: 'assets/images/dove.png', alt: 'dove', selected: false, canFly: true },
@@ -41,7 +41,7 @@ export const CHALLENGES: GridChallenge[] = [
     // 2. Odd-One-Out x 12
     {
       type: 'odd-one-out',
-      prompt: 'Select the image that is not animal',
+      prompt: 'Which picture does not show an animal?',
       images: [
         { src: 'assets/images/cat.png', alt: 'cat', selected: false, oddOne: false },
         { src: 'assets/images/dog.png', alt: 'dog', selected: false, oddOne: false },
@@ -61,7 +61,7 @@ export const CHALLENGES: GridChallenge[] = [
     // 3. Math x 17
     {
       type: 'math-select',
-      prompt: 'Select all images with correct math answers',
+      prompt: 'Pick all images where the math answer is correct',
       images: [
         { src: 'assets/images/math-2plus2-4.png', alt: '2 + 2 = 4', selected: false, mathCorrect: true },
         { src: 'assets/images/math-3times3-9.png', alt: '3 × 3 = 9', selected: false, mathCorrect: true },
