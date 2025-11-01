@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { resetCaptchaSession } from '../utils/session';
 
 @Component({
   selector: 'app-home',
@@ -14,31 +15,14 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     localStorage.removeItem('currentChallenge');
-  }
-    startCaptcha() {
-    // Clear ALL per-challenge and meta session values when starting a new captcha session
-    Object.keys(localStorage).forEach((key) => {
-      if (
-        key.startsWith('captchaChallenge_') ||
-        key === 'currentChallenge' ||
-        key === 'captchaStarted' ||
-        key === 'captchaStartTime' ||
-        key === 'captchaEndTime' ||
-        key === 'captchaCompleted' ||
-        key === 'captchaStartReadable' ||
-        key === 'captchaEndReadable' ||
-        key.startsWith('captchaRetries_') 
-      ) {
+      Object.keys(localStorage).forEach((key) => {
+      if (key.startsWith('challengeCompleted_')) {
         localStorage.removeItem(key);
       }
     });
-    // Initialize new session state
-    const now = Date.now();
-    const readableStartTime = new Date(now).toLocaleString();
-
-    localStorage.setItem('captchaStarted', 'true');
-    localStorage.setItem('captchaStartTime', now.toString()); // store numeric only
-    localStorage.setItem('captchaStartReadable', readableStartTime); // optional, for results display
-    this.router.navigate(['/captcha']);
+  }
+    startCaptcha() {
+      resetCaptchaSession();
+      this.router.navigate(['/captcha']);
   }
 }

@@ -1,59 +1,60 @@
-# AngulIt
+# Angul-It: Multi-Stage CAPTCHA App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+### Author : [Mayuree Reunsati](https://github.com/mareerray)
 
-## Development server
+**Angul-It** is an Angular web application featuring multi-stage image-based CAPTCHA challenges to distinguish human users from bots.
 
-To start a local development server, run:
+## Features
+- Multi-stage image selection challenges
 
-```bash
+- Angular form validation on each stage
+
+- Persistent state with services/local storage
+
+- Responsive and easy-to-use interface
+
+- Secure routing and restricted access
+
+- Results summary and "Restart Challenge" option
+
+## Setup
+1. Clone the repo and run 
+````
+npm install
+````
+
+2. Start the server with 
+````
 ng serve
-```
+````
+3. By default, the app is served locally at:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Local: [http://localhost:4200/](http://localhost:4200/)
 
-## Code scaffolding
+## Components
+- HomeComponent: Launches challenge
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- CaptchaComponent: Presents each image challenge
 
-```bash
-ng generate component component-name
-```
+- ResultComponent: Shows performance summary
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## How It Works
+- Solve each image challenge to proceed
 
-```bash
-ng generate --help
-```
+- Progress is saved across refreshes
 
-## Building
+- Direct results access is blocked until all challenges are finished
 
-To build the project run:
+## Constraints
+- Latest Angular, no external CAPTCHA libraries
 
-```bash
-ng build
-```
+- State persists between reloads
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- All routing managed with Angular Router
 
-## Running unit tests
+## Links:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+[Angular Docs](https://angular.io/docs)
 
-```bash
-ng test
-```
+[CLI Overview and Command Reference](https://v17.angular.io/cli)
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

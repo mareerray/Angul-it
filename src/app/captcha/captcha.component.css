@@ -8,9 +8,9 @@
   grid-template-columns: repeat(3, 1fr); /* 3 columns for a 3x3 grid */
   gap: 18px;
   margin: 24px auto 0 auto;
-  max-width: 600px;
+  max-width: 550px;
   width: 80%;
-  max-height: 600px;
+  max-height: 550px;
   height: 80%;
   position: relative;
 }

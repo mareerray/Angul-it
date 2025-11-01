@@ -1,19 +1,36 @@
 <div class="result-container">
   <h1>Challenge Completed!</h1>
 
-  <p>All {{ totalChallenges }} challenges have been successfully completed.</p>
+  <p>
+    🎉 You conquered all {{ totalChallenges }} challenges. 🎉 
+    <br>
+    Here’s how you did:
+  </p>
 
-
-  <div class="result-row">
-    <h2> Number of retries: <strong>{{ totalRetries }}</strong></h2>
-    <h2 *ngIf="timeTaken > 0">Time taken: <strong>{{ formattedTime }}</strong></h2>
+  <div class="challenge-row">
+    <div class="challenge-box">
+      <span class="challenge-emoji">⏱️</span>
+      <span class="challenge-title">Time</span>
+      <span class="challenge-desc">{{ formattedTime }}</span>
+    </div>
+    <div class="challenge-box">
+      <span class="challenge-emoji">🔄</span>
+      <span class="challenge-title">Retries</span>
+      <span class="challenge-desc">{{ totalRetries }}</span>
+    </div>
+    <div class="challenge-box">
+      <span class="challenge-emoji">⌛</span>
+      <span class="challenge-title">Avg Time</span>
+      <span class="challenge-desc">{{ averageTime }}s</span>
+    </div>
   </div>
 
-  <h2 class="performance pulse">{{ performanceMessage }}</h2>
+  <div class="performance-line">
+    <span class="performance performance-msg pulse">{{ performanceMessage }}</span>
+  </div>
 
   <div class="result-button-row">
     <button class="btn-main" (click)="goHome()">Back to Homepage</button>
-    <button class="btn-main" (click)="startNewChallenge()">Start New Challenge</button>
+    <button class="btn-main" (click)="startCaptcha()">Start New Challenge</button>
   </div>
-  <!-- <button class="btn-main" (click)="startOver()">Start New Challenge</button> -->
 </div>

@@ -1,5 +1,5 @@
 <h2 class="captcha-title">
-  {{ challenges[currentChallenge].prompt }}
+  {{ currentChallenge + 1 }}/{{ challenges.length }} — {{ challenges[currentChallenge].prompt }}
 </h2>
 
 <div class="timer">
@@ -48,9 +48,9 @@
     Back
   </button>
 
-   <button 
+  <button 
     class="btn-main" 
-    (click)="checkUserAnswer()"
+    (click)="onSubmit()"
     [disabled]="isCompleted"  
   >
     Submit

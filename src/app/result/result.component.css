@@ -44,14 +44,67 @@
     margin-bottom: 2em;
 }
 
+.challenge-row {
+    display: flex;
+    justify-content: space-around;
+    margin: 1em 0;
+    flex-wrap: wrap;
+}
+.challenge-box {
+    border-radius: 12px;
+    box-shadow: 0 8px 28px 0 rgba(53, 74, 181, 0.28);
+    /* box-shadow: 0 30px 50px #2348bb0d; */
+    padding: 1em 1.5em;
+    margin: 0 0.5em;
+    text-align: center;
+    width: 160px;
+    min-width: 120px;
+}
+.challenge-emoji {
+    font-size: 2em;
+    display: block;
+    margin-bottom: 0.3em;
+}
+.challenge-title {
+    font-weight: 600;
+    font-size: 1.1em;
+    display: block;
+}
+.challenge-desc {
+    color: #333;
+    font-size: 0.96em;
+    display: block;
+    margin-top: 0.1em;
+}
+.performance-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7em;
+  font-weight: 500;
+}
+.performance-msg {
+  color: #3551bd;
+  letter-spacing: 0.5px;
+}
 .performance {
-  font-weight: 600;
   color: #b76773;
   margin-top: 20px;
 }
 
 .pulse {
   animation: pulse 1.7s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+    .challenge-row {
+        flex-direction: column;
+        align-items: center;
+    }
+    .challenge-box {
+        width: 90%;
+        margin-bottom: 1em;
+    }
 }
 
 @keyframes pulse {
@@ -70,5 +123,5 @@
   display: flex;
   justify-content: center;
   gap: 24px;
-  margin-top: 2em;
+  margin: 1em 0 1em 0;
 }
