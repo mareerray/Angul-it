@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-    startCaptcha() {
+  startCaptcha() {
       resetCaptchaSession();
       this.router.navigate(['/captcha']);
   }
